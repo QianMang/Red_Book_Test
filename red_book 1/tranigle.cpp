@@ -20,7 +20,7 @@ const GLuint NumVertices2 = 4;
 //
 // init
 //
-void InitShader() {
+Shader* InitShader() {
 	ShaderInfo  shadersInfo[] =
 	{
 		{ GL_VERTEX_SHADER, "triangles.vert" },
@@ -30,6 +30,7 @@ void InitShader() {
 	Shader *shader = new Shader();
 	shader->CreateShader(shadersInfo);
 	shader->UseShader();
+	return shader;
 }
 
 void init1(void)
@@ -91,31 +92,34 @@ void init2() {
 
 	//glCreateVertexArrays(NumVAOs, VAOs);
 	const GLfloat  vertices[NumVertices2][2] = { //4 points
-		{ -1.f, -1.f },{ 1.f, -1.f },{ -1.f,  1.f },  
-		{ 1.f,  1.f }  
+		{ -0.5f, -0.5f },{ 0.5f, -0.5f },{ -0.5f,  0.5f },  
+		{ 0.5f,  0.5f }  
 	};
 	const GLushort vertices_index[] = {
 		0,1,2,
-		1,3,2
+		2,1,3
 	};
-	/*GLfloat colors[NumVertices][4] = {
-		{1,0,0,0},{1,0,0,0},{1,0,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}
-	};*/
+	GLfloat colors[NumVertices2][4] = {
+		{1,0,0,1},{0,0,0,1},{0,1,1,1},{0,1,0,1}
+	};
 	glGenBuffers(1, Buffers); 
 	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
-	glNamedBufferStorage(Buffers[ArrayBuffer], sizeof(vertices), nullptr, GL_DYNAMIC_STORAGE_BIT);
-	glNamedBufferData(Buffers[ArrayBuffer], sizeof(vertices), vertices, GL_STATIC_DRAW);
-	//glNamedBufferSubData(Buffers[ArrayBuffer], sizeof(vertices), sizeof(colors), colors);
-	
+	glNamedBufferStorage(Buffers[ArrayBuffer], sizeof(vertices)+sizeof(colors), nullptr, GL_DYNAMIC_STORAGE_BIT);
+	glNamedBufferSubData(Buffers[ArrayBuffer],0,sizeof(vertices),vertices);
+	glNamedBufferSubData(Buffers[ArrayBuffer], sizeof(vertices), sizeof(colors), colors);
+	//不要用这个傻逼东西：glNamedBufferData(Buffers[ArrayBuffer], sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-
+	glEnableVertexAttribArray(vPosition);
+	glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(vertices)));
+	glEnableVertexAttribArray(vColor);
 
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(vertices_index),vertices_index, GL_STATIC_DRAW);
 
-	InitShader();
-
+	Shader* shader = InitShader();
+	//GLfloat color[4] = { 0,0,0,1 };
+	//shader->SetColor(color);
 
 }
 
@@ -142,8 +146,8 @@ void display2(void) {
 	glClearBufferfv(GL_COLOR, 0, background);
 	glBindVertexArray(VAOs[Triangles]);
 	//drawing command
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glDrawElements(GL_TRIANGLES, NumVertices, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+	glDrawElements(GL_TRIANGLES, NumVertices, GL_UNSIGNED_SHORT,0);
 }
 
 void Loop(GLFWwindow* window, void init(), void display()) {

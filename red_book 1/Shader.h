@@ -8,7 +8,7 @@ public:
 	Shader();
 	GLboolean CreateShader(ShaderInfo*);
 	void UseShader();
-
+	void SetColor(GLfloat*);
 	~Shader();
 
 private:

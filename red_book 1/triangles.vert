@@ -14,10 +14,12 @@ int test(int t){
 
 void main()
 {
-	float array[3] = float[3](1.0, 2.0 ,3.0);
-    int a=1;
-	int b=test(a);
+	//float array[3] = float[3](1.0, 2.0 ,3.0);
+    //int a=1;
+	//int b=test(a);
 	color = vColor;
+
+
 	gl_Position = vPosition;
 
 }

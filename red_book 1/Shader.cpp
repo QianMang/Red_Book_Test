@@ -25,6 +25,11 @@ void Shader::UseShader()
 	glUseProgram(shaderID);
 }
 
+void Shader::SetColor(GLfloat* color)
+{
+	glUniform1fv(glGetUniformLocation(shaderID, "myColor"), 4, color);
+}
+
 Shader::~Shader()
 {
 }
