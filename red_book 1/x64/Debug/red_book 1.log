@@ -1,0 +1,35 @@
+﻿  LoadShaders.cpp
+  tranigle.cpp
+  正在生成代码...
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wAttachShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wCompileShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wCreateProgram
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wCreateShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wDeleteShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wGetProgramiv
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wGetProgramInfoLog
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wGetShaderiv
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wGetShaderInfoLog
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wLinkProgram
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 gl3wShaderSource
+tranigle.obj : error LNK2019: 无法解析的外部符号 gl3wInit，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwInit，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwTerminate，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwCreateWindow，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwDestroyWindow，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwWindowShouldClose，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwPollEvents，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwMakeContextCurrent，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2019: 无法解析的外部符号 glfwSwapBuffers，该符号在函数 WinMain 中被引用
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wDrawArrays
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wBindBuffer
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wEnableVertexAttribArray
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wUseProgram
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wVertexAttribPointer
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wClearBufferfv
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wBindVertexArray
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wGenVertexArrays
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wBufferStorage
+tranigle.obj : error LNK2001: 无法解析的外部符号 gl3wCreateBuffers
+MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 main，该符号在函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中被引用
+X:\_各种资料\程序相关\openGL\red_book 1\x64\Debug\red_book 1.exe : fatal error LNK1120: 31 个无法解析的外部命令

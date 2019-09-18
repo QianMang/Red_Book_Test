@@ -1,0 +1,32 @@
+﻿  LoadShaders.cpp
+  tranigle.cpp
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wAttachShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wShaderSource
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wLinkProgram
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wDeleteShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wGetProgramiv
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wCompileShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wCreateShader
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wGetShaderiv
+LoadShaders.obj : error LNK2001: 无法解析的外部符号 _gl3wCreateProgram
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwSwapBuffers
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wBindBuffer
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wDrawArrays
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wGenVertexArrays
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wClearBufferfv
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwTerminate
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wVertexAttribPointer
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwPollEvents
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwInit
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwCreateWindow
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wEnableVertexAttribArray
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwMakeContextCurrent
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wUseProgram
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wBindVertexArray
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwDestroyWindow
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wCreateBuffers
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wInit
+tranigle.obj : error LNK2001: 无法解析的外部符号 _gl3wBufferStorage
+tranigle.obj : error LNK2001: 无法解析的外部符号 _glfwWindowShouldClose
+MSVCRT.lib(exe_main.obj) : error LNK2001: 无法解析的外部符号 _main
+X:\_各种资料\程序相关\openGL\red_book 1\Release\red_book 1.exe : fatal error LNK1120: 29 个无法解析的外部命令
