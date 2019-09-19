@@ -3,7 +3,7 @@
 #pragma optimize(on)
 //#error __LINE__
 
-in vec4 vPosition;
+in vec2 vPosition;
 in vec4 vColor;
 
 out vec4 color;
@@ -20,7 +20,7 @@ void main()
 	color = vColor;
 
 
-	gl_Position = vPosition;
+	gl_Position = vec4(vPosition.x,vPosition.y, 0, 1);
 
 }
 

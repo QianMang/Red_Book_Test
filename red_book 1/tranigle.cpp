@@ -7,15 +7,16 @@
 #include "vgl.h"
 #include "Shader.h"
 using namespace std;
-enum VAO_IDs { Triangles, Rectangles,NumVAOs };
+enum VAO_IDs { Triangles,Triangles2,NumVAOs };
 enum Buffer_IDs { ArrayBuffer,ArrayBuffer2, NumBuffers };
 enum Attrib_IDs { vPosition = 0 ,vColor = 1};  //can be gotten by glGetAttribLocation(program, "XXX");
-enum Route {DrawArrays = 1, DrawElements = 2};
+enum Route {DrawArrays = 1, DrawElements = 2 , Mutiple_objects = 3};
 GLuint  VAOs[NumVAOs];
 GLuint  Buffers[NumBuffers];
 GLuint  indexBuffer;
 const GLuint  NumVertices = 6;
 const GLuint NumVertices2 = 4;
+
 //----------------------------------------------------------------------------
 //
 // init
@@ -38,7 +39,7 @@ void init1(void)
 	glCreateVertexArrays(NumVAOs, VAOs);
 	glBindVertexArray(VAOs[Triangles]);
 
-	//glCreateVertexArrays(NumVAOs, VAOs);
+	
 	const GLfloat  vertices[NumVertices][2] = {
 		{ -0.80f, -0.80f },{ 0.85f, -0.90f },{ -0.90f,  0.85f },  // Triangle 1
 		{ 0.90f, -0.85f },{ 0.90f,  0.90f },{ -0.85f,  0.90f }   // Triangle 2
@@ -90,7 +91,7 @@ void init2() {
 	glCreateVertexArrays(NumVAOs, VAOs);
 	glBindVertexArray(VAOs[Triangles]);
 
-	//glCreateVertexArrays(NumVAOs, VAOs);
+	
 	const GLfloat  vertices[NumVertices2][2] = { //4 points
 		{ -0.5f, -0.5f },{ 0.5f, -0.5f },{ -0.5f,  0.5f },  
 		{ 0.5f,  0.5f }  
@@ -123,6 +124,61 @@ void init2() {
 
 }
 
+void init3() {
+	const GLfloat  vertices[NumVertices][2] = {
+		{ -0.80f, -0.80f },{ 0.85f, -0.90f },{ -0.90f,  0.85f },  // Triangle 1
+		{ 0.0f, -0.85f },{ 0.90f,  0.0f },{ -0.85f,  0.0f }   // Triangle 2
+	};
+	const GLfloat  vertices2[3][2] = {
+		{0.9f,0.9f} ,{-0.9f,0.9f},{0.9f, 0.f}  //Triangle 3
+	};
+	const GLfloat colors[NumVertices][4] = {
+		{1,0,0,0},{1,0,0,0},{1,0,0,0},{0,1,0,0},{0,1,0,0},{0,1,0,0}
+	};
+	const GLfloat colors2[3][4] = {
+		{0,0,1,0},{0,0,1,0},{0,0,1,0}
+	};
+	InitShader();
+	glGenVertexArrays(NumVAOs, VAOs);
+
+	glBindVertexArray(VAOs[Triangles]);
+	//first object
+	glGenBuffers(NumBuffers, Buffers);  // here need 2 buffers to create
+	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices) + sizeof(colors), nullptr, GL_DYNAMIC_STORAGE_BIT);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(colors), colors);
+	//glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer]);
+	
+	
+	//--second object
+	glBindBuffer(GL_ARRAY_BUFFER, Buffers[ArrayBuffer2]);
+	glBufferStorage(GL_ARRAY_BUFFER, sizeof(vertices2) + sizeof(colors2), nullptr, GL_DYNAMIC_STORAGE_BIT);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices2), vertices2);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices2), sizeof(colors2), colors2);
+	
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+}
+
+void drawObject(int numVertices, GLuint buffer) {
+	glBindVertexArray(VAOs[Triangles]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	
+	glEnableVertexAttribArray(vPosition);
+	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	glEnableVertexAttribArray(vColor);
+	glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(numVertices*2*sizeof(float)));
+	
+
+	glDrawArrays(GL_TRIANGLES, 0, numVertices);
+	glDisableVertexAttribArray(vPosition);
+	glDisableVertexAttribArray(vColor);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
 //----------------------------------------------------------------------------
 //
 // display
@@ -148,6 +204,17 @@ void display2(void) {
 	//drawing command
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glDrawElements(GL_TRIANGLES, NumVertices, GL_UNSIGNED_SHORT,0);
+}
+
+void display3(void) {
+	static const float background[] = { 1.0f, 0.5f, 0.0f, 0.0f };
+
+	glClearBufferfv(GL_COLOR, 0, background);
+	
+
+	drawObject(NumVertices, Buffers[ArrayBuffer]);
+	drawObject(3, Buffers[ArrayBuffer2]);
+
 }
 
 void Loop(GLFWwindow* window, void init(), void display()) {
@@ -182,6 +249,7 @@ int main(int argc, char** argv)
 	cout << "-------------------------------------------------" << endl;
 	cout << "1.two seperate traingles(glDrawArrays)" << endl;
 	cout << "2.two traingles using same edge(index-glDrawElement)" << endl;
+	cout << "3.multiple object to render" << endl;
 	cout << "input:";
 	cin >> route;
 
@@ -201,6 +269,9 @@ int main(int argc, char** argv)
 	}
 	else if (route == Route::DrawElements) {
 		Loop(window, init2, display2);
+	}
+	else if (route == Route::Mutiple_objects) {
+		Loop(window, init3, display3);
 	}
 	
 	glfwDestroyWindow(window);
